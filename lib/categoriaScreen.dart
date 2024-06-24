@@ -1,11 +1,14 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:mercado/addCategoriaScreen.dart';
-import 'package:mercado/modelCategoria.dart';
-import 'package:mercado/produtoScreen.dart';
-import 'package:mercado/sharedPreferencesHelper.dart';
+import 'package:fruits/addCategoriaScreen.dart';
+import 'package:fruits/modelCategoria.dart';
+import 'package:fruits/produtoScreen.dart';
+import 'package:fruits/sharedPreferencesHelper.dart';
 
 class CategoriaScreen extends StatefulWidget {
+  const CategoriaScreen({super.key});
+
   @override
   _CategoriaScreenState createState() => _CategoriaScreenState();
 }
@@ -27,6 +30,15 @@ class _CategoriaScreenState extends State<CategoriaScreen> {
     });
   }
 
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+
   void _addCategoria() {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -38,10 +50,10 @@ class _CategoriaScreenState extends State<CategoriaScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 227, 227, 227),
+      backgroundColor: const Color.fromARGB(255, 227, 227, 227),
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 227, 227, 227),
-        title: Text('Todas as Categorias'),
+        backgroundColor: const Color.fromARGB(255, 227, 227, 227),
+        title: const Text('Todas as Categorias'),
         centerTitle: true,
       ),
       body: ListView.builder(
@@ -51,7 +63,7 @@ class _CategoriaScreenState extends State<CategoriaScreen> {
           final int secondIndex = firstIndex + 1;
           return Row(
             children: <Widget>[
-              SizedBox(width: 20),
+              const SizedBox(width: 20),
               Expanded(
                 child: GestureDetector(
                   onTap: () {
@@ -65,15 +77,15 @@ class _CategoriaScreenState extends State<CategoriaScreen> {
                     );
                   },
                   child: Card(
-                    color: Color.fromARGB(255, 255, 255, 255),
+                    color: const Color.fromARGB(255, 255, 255, 255),
                     child: Column(
                       children: <Widget>[
                         SizedBox(
                           child: Padding(
-                            padding: EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: _categorias[firstIndex].imagem.isNotEmpty
                                 ? Image.file(File(_categorias[firstIndex].imagem))
-                                : SizedBox(),
+                                : const SizedBox(),
                           ),
                         ),
                         Padding(
@@ -85,7 +97,7 @@ class _CategoriaScreenState extends State<CategoriaScreen> {
                   ),
                 ),
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               secondIndex < _categorias.length
                   ? Expanded(
                       child: GestureDetector(
@@ -104,10 +116,10 @@ class _CategoriaScreenState extends State<CategoriaScreen> {
                             children: <Widget>[
                               SizedBox(
                                 child: Padding(
-                                  padding: EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(8.0),
                                   child: _categorias[secondIndex].imagem.isNotEmpty
                                       ? Image.file(File(_categorias[secondIndex].imagem))
-                                      : SizedBox(),
+                                      : const SizedBox(),
                                 ),
                               ),
                               Padding(
@@ -119,7 +131,7 @@ class _CategoriaScreenState extends State<CategoriaScreen> {
                         ),
                       ),
                     )
-                  : Expanded(child: SizedBox()),
+                  : const Expanded(child: SizedBox()),
             ],
           );
         },
@@ -127,7 +139,94 @@ class _CategoriaScreenState extends State<CategoriaScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: _addCategoria,
         tooltip: 'Adicionar Categoria',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
+      ),
+      bottomNavigationBar: ClipRRect(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(20.0),
+          topRight: Radius.circular(20.0),
+        ),
+        child: BottomNavigationBar(
+          enableFeedback: true,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Center(
+                child: CircleAvatar(
+                  backgroundColor: _selectedIndex == 0
+                      ? const Color.fromARGB(255, 94, 196, 1)
+                      : Colors.transparent,
+                  child: Icon(
+                    Icons.home,
+                    color: _selectedIndex == 0
+                        ? Colors.white
+                        : const Color.fromARGB(255, 55, 71, 79),
+                  ),
+                ),
+              ),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: Center(
+                child: CircleAvatar(
+                  backgroundColor: _selectedIndex == 1
+                      ? const Color.fromARGB(255, 94, 196, 1)
+                      : Colors.transparent,
+                  child: Icon(
+                    Icons.category,
+                    color: _selectedIndex == 1
+                        ? Colors.white
+                        : const Color.fromARGB(255, 55, 71, 79),
+                  ),
+                ),
+              ),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: Center(
+                child: CircleAvatar(
+                  backgroundColor: _selectedIndex == 2
+                      ? const Color.fromARGB(255, 94, 196, 1)
+                      : Colors.transparent,
+                  child: Icon(
+                    Icons.shopping_bag,
+                    color: _selectedIndex == 2
+                        ? Colors.white
+                        : const Color.fromARGB(255, 55, 71, 79),
+                  ),
+                ),
+              ),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: Center(
+                child: CircleAvatar(
+                  backgroundColor: _selectedIndex == 3
+                      ? const Color.fromARGB(255, 94, 196, 1)
+                      : Colors.transparent,
+                  child: Icon(
+                    Icons.menu,
+                    color: _selectedIndex == 3
+                        ? Colors.white
+                        : const Color.fromARGB(255, 55, 71, 79),
+                  ),
+                ),
+              ),
+              label: '',
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          selectedItemColor: const Color.fromARGB(255, 48, 48, 48),
+          unselectedItemColor: const Color.fromARGB(31, 0, 0, 0),
+          onTap: _onItemTapped,
+          selectedIconTheme: const IconThemeData(
+            color: Color.fromARGB(255, 255, 255, 255),
+            size: 30.0,
+          ),
+          selectedLabelStyle: const TextStyle(
+            color: Colors.green,
+          ),
+          backgroundColor: Colors.white,
+        ),
       ),
     );
   }

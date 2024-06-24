@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:mercado/addCategoriaScreen.dart';
-import 'package:mercado/categoriaScreen.dart';
-import 'package:mercado/modelCategoria.dart';
-import 'package:mercado/sacolaScreen.dart';
-import 'package:mercado/opcoesScreen.dart';
-import 'package:mercado/sharedPreferencesHelper.dart';
+import 'package:fruits/SlapshScreen.dart';
+import 'package:fruits/addCategoriaScreen.dart';
+import 'package:fruits/categoriaScreen.dart';
+import 'package:fruits/modelCategoria.dart';
+import 'package:fruits/sacolaScreen.dart';
+import 'package:fruits/opcoesScreen.dart';
+import 'package:fruits/sharedPreferencesHelper.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,19 +22,19 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MainScreen(),
+      home: const SplashScreen(),
     );
   }
 }
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+class SlapshScreen extends StatefulWidget {
+  const SlapshScreen({super.key});
 
   @override
-  MainScreenState createState() => MainScreenState();
+  SpalshScreenState createState() => SpalshScreenState();
 }
 
-class MainScreenState extends State<MainScreen> {
+class SpalshScreenState extends State<SlapshScreen> {
   final SharedPreferencesHelper _prefsHelper = SharedPreferencesHelper();
   List<Categoria> _categorias = [];
   late List<Widget> _widgetOptions;
@@ -41,7 +42,7 @@ class MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
-    _widgetOptions = <Widget>[];  // Inicializa com uma lista vazia
+    _widgetOptions = <Widget>[];  
     _refreshCategorias();
   }
 
@@ -72,94 +73,11 @@ class MainScreenState extends State<MainScreen> {
       backgroundColor: const Color.fromARGB(255, 227, 227, 227),
       body: _widgetOptions.isNotEmpty
           ? _widgetOptions.elementAt(_selectedIndex)
-          : Center(child: CircularProgressIndicator()),  // Exibe um indicador de carregamento enquanto `_widgetOptions` está vazio
-      bottomNavigationBar: ClipRRect(
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(20.0),
-          topRight: Radius.circular(20.0),
-        ),
-        child: BottomNavigationBar(
-          enableFeedback: true,
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Center(
-                child: CircleAvatar(
-                  backgroundColor: _selectedIndex == 0
-                      ? const Color.fromARGB(255, 94, 196, 1)
-                      : Colors.transparent,
-                  child: Icon(
-                    Icons.home,
-                    color: _selectedIndex == 0
-                        ? Colors.white
-                        : const Color.fromARGB(255, 55, 71, 79),
-                  ),
-                ),
-              ),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: Center(
-                child: CircleAvatar(
-                  backgroundColor: _selectedIndex == 1
-                      ? const Color.fromARGB(255, 94, 196, 1)
-                      : Colors.transparent,
-                  child: Icon(
-                    Icons.category,
-                    color: _selectedIndex == 1
-                        ? Colors.white
-                        : const Color.fromARGB(255, 55, 71, 79),
-                  ),
-                ),
-              ),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: Center(
-                child: CircleAvatar(
-                  backgroundColor: _selectedIndex == 2
-                      ? const Color.fromARGB(255, 94, 196, 1)
-                      : Colors.transparent,
-                  child: Icon(
-                    Icons.shopping_bag,
-                    color: _selectedIndex == 2
-                        ? Colors.white
-                        : const Color.fromARGB(255, 55, 71, 79),
-                  ),
-                ),
-              ),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: Center(
-                child: CircleAvatar(
-                  backgroundColor: _selectedIndex == 3
-                      ? const Color.fromARGB(255, 94, 196, 1)
-                      : Colors.transparent,
-                  child: Icon(
-                    Icons.menu,
-                    color: _selectedIndex == 3
-                        ? Colors.white
-                        : const Color.fromARGB(255, 55, 71, 79),
-                  ),
-                ),
-              ),
-              label: '',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: const Color.fromARGB(255, 48, 48, 48),
-          unselectedItemColor: const Color.fromARGB(31, 0, 0, 0),
-          onTap: _onItemTapped,
-          selectedIconTheme: const IconThemeData(
-            color: Color.fromARGB(255, 255, 255, 255),
-            size: 30.0,
-          ),
-          selectedLabelStyle: const TextStyle(
-            color: Colors.green,
-          ),
-          backgroundColor: Colors.white,
-        ),
-      ),
+          : Center(child: CircularProgressIndicator()),  
+      
     );
   }
 }
+
+
+

@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:mercado/SharedPreferencesHelper.dart';
-import 'package:mercado/modelProduto.dart';
-import 'package:mercado/addProdutoScreen.dart';
+import 'package:fruits/SharedPreferencesHelper.dart';
+import 'package:fruits/modelProduto.dart';
+import 'package:fruits/addProdutoScreen.dart';
 
 class ProdutoScreen extends StatefulWidget {
   final int categoriaId;

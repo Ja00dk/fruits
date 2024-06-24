@@ -1,14 +1,14 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mercado/SharedPreferencesHelper.dart';
-import 'package:mercado/modelProduto.dart';
+import 'package:fruits/SharedPreferencesHelper.dart';
+import 'package:fruits/modelProduto.dart';
 
 class AddProdutoScreen extends StatefulWidget {
   final int categoriaId;
   final VoidCallback onSave;
 
-  AddProdutoScreen({required this.categoriaId, required this.onSave});
+  const AddProdutoScreen({required this.categoriaId, required this.onSave});
 
   @override
   _AddProdutoScreenState createState() => _AddProdutoScreenState();
@@ -33,30 +33,32 @@ class _AddProdutoScreenState extends State<AddProdutoScreen> {
   }
 
   Future<void> _saveProduto() async {
-    if (_formKey.currentState!.validate() && _image != null) {
-      final produtos =
-          await _prefsHelper.getProdutosByCategoria(widget.categoriaId);
-      final novoId = produtos.isNotEmpty
-          ? produtos.map((p) => p.id).reduce((a, b) => a > b ? a : b) +
-              1 +
-              widget.categoriaId
-          : 1;
-      final novoProduto = Produto(
-        id: novoId,
-        nome: _nomeController.text,
-        descricao: _descricaoController.text,
-        preco: double.parse(_precoController.text),
-        imagem: _image!.path,
-        categoriaId: widget.categoriaId,
-      );
+  if (_formKey.currentState!.validate() && _image != null) {
+    final produtos =
+        await _prefsHelper.getProdutosByCategoria(widget.categoriaId);
+    final novoId = produtos.isNotEmpty
+        ? produtos.map((p) => p.id).reduce((a, b) => a > b ? a : b) +
+            1 +
+            widget.categoriaId
+        : 1;
+    final precoText = _precoController.text.replaceAll(RegExp(r'[^\d.,]'), '');
+    final novoPreco = double.parse(precoText.replaceAll(',', '.'));
+    final novoProduto = Produto(
+      id: novoId,
+      nome: _nomeController.text,
+      descricao: _descricaoController.text,
+      preco: novoPreco,
+      imagem: _image!.path,
+      categoriaId: widget.categoriaId,
+    );
 
-      produtos.add(novoProduto);
-      await _prefsHelper.saveProdutos(produtos);
+    produtos.add(novoProduto);
+    await _prefsHelper.saveProdutos(produtos);
 
-      widget.onSave();
-      Navigator.of(context).pop();
-    }
+    widget.onSave();
+    Navigator.of(context).pop();
   }
+}
 
   @override
   Widget build(BuildContext context) {

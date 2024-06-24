@@ -1,9 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:fruits/SlapshScreen.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mercado/SharedPreferencesHelper.dart';
-import 'package:mercado/main.dart';
-import 'package:mercado/modelCategoria.dart';
+import 'package:fruits/SharedPreferencesHelper.dart';
+import 'package:fruits/main.dart';
+import 'package:fruits/modelCategoria.dart';
 
 class AddCategoriaScreen extends StatefulWidget {
   final VoidCallback onSave;
@@ -29,7 +30,7 @@ class _AddCategoriaScreenState extends State<AddCategoriaScreen> {
           _image = File(pickedFile.path);
         });
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Nenhuma imagem selecionada.'),
           backgroundColor: Colors.red,
         ));
@@ -60,7 +61,7 @@ class _AddCategoriaScreenState extends State<AddCategoriaScreen> {
         await _prefsHelper.saveCategorias(categorias);
 
         widget.onSave();
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => MainScreen(),));
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SplashScreen(),));
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Erro ao salvar categoria: $e'),

@@ -13,7 +13,7 @@ class Categoria {
 
   factory Categoria.fromJson(Map<String, dynamic> json) {
     return Categoria(
-      id: json['id'] ?? 0, // Use um valor padrão se o ID for nulo
+      id: json['id'] ?? 0, 
       nome: json['nome'],
       descricao: json['descricao'],
       imagem: json['imagem'],

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:mercado/modelCategoria.dart';
-import 'package:mercado/modelProduto.dart';
+import 'package:fruits/modelCategoria.dart';
+import 'package:fruits/modelProduto.dart';
 
 class SharedPreferencesHelper {
   static const String categoriasKey = 'categorias';
